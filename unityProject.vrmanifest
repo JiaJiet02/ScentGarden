@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.scentgarden.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\ASUS\\Desktop\\Work\\FYP\\Unity Official Course\\Scent Garden\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "Scent Garden [Testing]"
+        }
+      }
+    }
+  ]
+}

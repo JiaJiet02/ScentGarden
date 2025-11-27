@@ -10,7 +10,7 @@ public class NpcInteractShowInfo : MonoBehaviour
 
     [Header("Timing")]
     public float fadeDuration = 1f;
-    public float displayTime = 3f;
+    public float displayTime = 15f;
     public KeyCode interactKey = KeyCode.E;
 
     [Header("NPC Behavior")]
@@ -31,6 +31,8 @@ public class NpcInteractShowInfo : MonoBehaviour
     private bool playerInRange = false;
     private bool isShowing = false;
     private Transform playerTransform;
+    private bool shouldRotate = false;
+
 
     void Start()
     {
@@ -58,7 +60,23 @@ public class NpcInteractShowInfo : MonoBehaviour
         if (playerInRange && Input.GetKeyDown(interactKey))
         {
             ShowInfo();
+            shouldRotate = true;   // start rotating toward player
+
         }
+
+        if (shouldRotate && npcModel != null && playerTransform != null)
+        {
+            Vector3 direction = playerTransform.position - npcModel.position;
+            direction.y = 0; // stay upright
+
+            Quaternion targetRot = Quaternion.LookRotation(direction);
+            npcModel.rotation = Quaternion.Slerp(
+                npcModel.rotation,
+                targetRot,
+                Time.deltaTime * rotateSpeed
+            );
+        }
+
     }
 
     void OnTriggerEnter(Collider player)
@@ -129,6 +147,8 @@ public class NpcInteractShowInfo : MonoBehaviour
         if (currentFade != null) StopCoroutine(currentFade);
         currentFade = StartCoroutine(FadeCanvas(0f));
         isShowing = false;
+        shouldRotate = false;  // stop rotating
+
 
         // Bring prompt back if player is still in range
         if (playerInRange && talkPrompt != null)

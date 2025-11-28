@@ -36,7 +36,7 @@ public class ChecklistManager : MonoBehaviour
             if (item.objectiveID == id && !item.isCompleted)
             {
                 item.isCompleted = true;
-                item.uiText.text = $"<s>{item.uiText.text}</s> \u2713";
+                item.uiText.text = $"<s>{item.uiText.text}</s>";
                 item.uiText.color = new Color(0.1f, 0.5f, 0.1f); // dark green
 
             }

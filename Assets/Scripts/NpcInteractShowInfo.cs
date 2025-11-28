@@ -21,6 +21,10 @@ public class NpcInteractShowInfo : MonoBehaviour
     public AudioSource audioSource;       // assign in inspector
     public AudioClip interactSound;       // sound to play when pressing E
 
+    [Header("Checklist")]
+    public string objectiveID;   // Must match the ID in ChecklistManager
+
+
 
     private CanvasGroup canvasGroup;
     private CanvasGroup promptCanvasGroup;
@@ -140,6 +144,9 @@ public class NpcInteractShowInfo : MonoBehaviour
         {
             audioSource.PlayOneShot(interactSound);
         }
+
+        ChecklistManager.Instance.MarkCompleted(objectiveID);
+
     }
 
     void HideInfo()
